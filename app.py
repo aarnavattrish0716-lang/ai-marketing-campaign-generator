@@ -19,10 +19,17 @@ if st.button("Generate Campaign"):
                                     "audience":audience,
                                     "platform":platform
                                 })
-        data=response.json() #This line parse JSON and converts json in python dict
-        st.success(data["message"])
-        st.subheader(data["title"])
+        data = response.json()
+        st.subheader("Campaign Title")
+        st.write(data["title"])
+
+        st.subheader("Tagline")
         st.write(data["tagline"])
-        st.write(f"Platform:{data["platform"]}")
+
+        st.subheader("Call To Action")
+        st.write(data["cta"])
+
+        st.subheader("Hashtags")
+        st.write(" ".join(data["hashtags"]))
     except requests.exceptions.RequestException as e:
         st.error(f"Request failed:{e}")
