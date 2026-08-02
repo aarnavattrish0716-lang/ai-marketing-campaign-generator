@@ -2,7 +2,7 @@ from google import genai
 from dotenv import load_dotenv
 import os
 import json
-from models import CampaignResponse
+from backend.models.api_models import CampaignResponse
 load_dotenv()
 client=genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -13,7 +13,7 @@ def generate_campaign(product, audience, platform):
         product=product,
         audience=audience,
         platform=platform)
-
+    
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=prompt,
