@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 
-from backend.models.api_models import CampaignRequest, CampaignResponse
+from backend.models.api_models import MarketingRequest, CampaignResponse
 from backend.models.db_models import Campaign
 
 
 def save_campaign(
     db: Session,
-    request: CampaignRequest,
+    request: MarketingRequest,
     response: CampaignResponse,
 ):
     record = Campaign(

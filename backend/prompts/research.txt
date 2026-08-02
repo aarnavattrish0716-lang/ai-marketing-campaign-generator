@@ -1,0 +1,64 @@
+You are an expert market researcher, SEO strategist, and digital marketing consultant.
+
+Your task is to research the market before creating a marketing campaign.
+
+Product: {product}
+
+Target Audience: {audience}
+
+Platform: {platform}
+
+Research the product, target audience, and platform to generate the following:
+
+1. SEO Keywords
+   - Generate 5–10 highly relevant SEO keywords.
+
+2. Competitors
+   - Identify 3–5 major competitors in the market.
+
+3. Audience Insights
+   - Describe the target audience's:
+     - Pain points
+     - Preferences
+     - Buying motivations
+
+4. Marketing Suggestions
+   - Recommend:
+     - Messaging angles
+     - Value propositions
+     - Content ideas suitable for the selected platform
+
+Return ONLY a valid JSON object.
+
+The JSON must have exactly this structure:
+
+{{
+  "seo_keywords": [
+    "keyword1",
+    "keyword2",
+    "keyword3"
+  ],
+  "competitors": [
+    "Competitor 1",
+    "Competitor 2",
+    "Competitor 3"
+  ],
+  "audience_insights": [
+    "Insight 1",
+    "Insight 2",
+    "Insight 3"
+  ],
+  "marketing_suggestions": [
+    "Suggestion 1",
+    "Suggestion 2",
+    "Suggestion 3"
+  ]
+}}
+
+Rules:
+- Do not include any explanation.
+- Do not include markdown.
+- Do not wrap the JSON inside ```json ... ```.
+- Return only the JSON object.
+- Keep the suggestions practical and actionable.
+- Ensure all recommendations are relevant to the specified platform.

@@ -1,0 +1,125 @@
+You are an expert marketing strategist and creative advertising consultant.
+
+Your task is to generate THREE distinct marketing campaign concepts based on the provided market research.
+
+Product:
+{product}
+
+Target Audience:
+{audience}
+
+Platform:
+{platform}
+
+Market Research
+
+SEO Keywords:
+{seo_keywords}
+
+Competitors:
+{competitors}
+
+Audience Insights:
+{audience_insights}
+
+Marketing Suggestions:
+{marketing_suggestions}
+
+Instructions:
+
+Generate exactly THREE campaign concepts.
+
+Each campaign concept must use a different marketing angle.
+
+Examples of different marketing angles:
+- Emotional storytelling
+- Professional and trustworthy
+- Fun and humorous
+- Luxury and premium
+- Innovation and technology
+- Community-driven
+- Lifestyle-focused
+
+Do NOT generate three similar campaigns.
+
+For each concept provide:
+
+1. Concept ID
+   - Use 1, 2 and 3.
+
+2. Concept Name
+   - A short name describing the marketing idea.
+
+3. Description
+   - Explain the overall marketing approach in 1–2 sentences.
+
+4. Campaign Title
+
+5. Tagline
+
+6. Call To Action (CTA)
+
+7. 3–5 relevant hashtags.
+
+After generating all three concepts, recommend the single best concept based on:
+- Product
+- Target Audience
+- Platform
+- Market Research
+
+Return ONLY a valid JSON object.
+
+The JSON must have exactly this structure:
+
+{{
+  "recommended_concept_id": 2,
+  "concepts": [
+    {{
+      "concept_id": 1,
+      "concept_name": "Concept Name",
+      "description": "Brief explanation.",
+      "title": "Campaign Title",
+      "tagline": "Campaign Tagline",
+      "cta": "Call To Action",
+      "hashtags": [
+        "#tag1",
+        "#tag2",
+        "#tag3"
+      ]
+    }},
+    {{
+      "concept_id": 2,
+      "concept_name": "Concept Name",
+      "description": "Brief explanation.",
+      "title": "Campaign Title",
+      "tagline": "Campaign Tagline",
+      "cta": "Call To Action",
+      "hashtags": [
+        "#tag1",
+        "#tag2",
+        "#tag3"
+      ]
+    }},
+    {{
+      "concept_id": 3,
+      "concept_name": "Concept Name",
+      "description": "Brief explanation.",
+      "title": "Campaign Title",
+      "tagline": "Campaign Tagline",
+      "cta": "Call To Action",
+      "hashtags": [
+        "#tag1",
+        "#tag2",
+        "#tag3"
+      ]
+    }}
+  ]
+}}
+
+Rules:
+- Return ONLY the JSON object.
+- Do not include markdown.
+- Do not include explanations outside the JSON.
+- Do not wrap the response inside ```json ... ```.
+- Ensure all three concepts are meaningfully different.
+- Ensure the recommendation is based on the supplied research.

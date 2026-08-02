@@ -1,8 +1,8 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from backend.models.api_models import CampaignRecord, CampaignRequest,CampaignResponse, MessageResponse
+from backend.models.api_models import CampaignRecord,MarketingRequest,CampaignResponse, MessageResponse, ResearchResponse
 from backend.services.database import get_db,Base,engine
-from backend.services.gemini_service import generate_campaign
+from backend.services.gemini_service import generate_campaign, generate_research
 from backend.services.campaign_service import delete_campaign_record, get_campaign_by_id, save_campaign,get_all_campaigns, update_campaign_record
 from pydantic import ValidationError
 from google.genai import errors
@@ -39,7 +39,7 @@ def get_campaign(Campaign_id:int,db:Session=Depends(get_db)):
         )
     return campaign
 @app.post("/campaigns",response_model=CampaignResponse)
-def create_campaign(request:CampaignRequest,db:Session=Depends(get_db)):
+def create_campaign(request:MarketingRequest,db:Session=Depends(get_db)):
     try:
         campaign = generate_campaign(
             request.product,
@@ -159,6 +159,52 @@ def delete_campaign(campaign_id:int,db:Session=Depends(get_db)):
         logger.exception(
             "Unexpected error while deleting campaign."
         )
+        raise HTTPException(
+            status_code=500,
+            detail="Internal Server Error"
+        )
+@app.post("/research", response_model=ResearchResponse)
+def generate_research_endpoint(
+    request: MarketingRequest,
+):
+    try:
+        logger.info(
+        "Generating market research for product=%s on platform=%s",
+        request.product,
+        request.platform,
+    )
+        research=generate_research(request.product,request.audience,request.platform)
+        logger.info(
+        "Market research generated successfully."
+    )
+        return research
+    except ValidationError:
+        logger.exception("Invalid response received from Gemini.")
+        raise HTTPException(
+            status_code=500,
+            detail="Gemini returned an invalid response"
+        )
+    except errors.APIError as e:
+        logger.exception("Gemini API error.")
+        if e.code==429:
+            raise HTTPException(
+                status_code=429,
+                detail="Gemini API quota exceeded. Please try again later."
+            )
+
+        elif e.code==401:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid Gemini API key."
+            )
+
+        else:
+            raise HTTPException(
+                status_code=e.code,
+                detail=e.message
+            )
+    except Exception:
+        logger.exception("Unexpected Error")
         raise HTTPException(
             status_code=500,
             detail="Internal Server Error"
