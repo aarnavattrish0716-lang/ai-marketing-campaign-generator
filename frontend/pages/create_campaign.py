@@ -39,9 +39,17 @@ generate_research_button = st.button(
 
 if generate_research_button:
 
+    if not product.strip():
+        st.warning("Please enter a product.")
+        st.stop()
+
+    if not audience.strip():
+        st.warning("Please enter a target audience.")
+        st.stop()
+
     request ={
-        "product":product,
-        "audience":audience,
+        "product":product.strip(),
+        "audience":audience.strip(),
         "platform":platform
     }
     try:
@@ -155,6 +163,9 @@ if st.session_state.campaign is not None:
     )
     if regenerate_button:
 
+        if not feedback.strip():
+            st.warning("Please enter feedback before regenerating.")
+            st.stop()
         request = {
             "marketing_request": st.session_state.marketing_request,
             "research": st.session_state.research,
@@ -181,32 +192,34 @@ if st.session_state.campaign is not None:
 
             st.error(str(e))
 
-st.divider()
+if st.session_state.campaign is not None:
 
-save_campaign_button = st.button(
-    "💾 Save Campaign",
-    use_container_width=True,
-)
+    st.divider()
 
-if save_campaign_button:
+    save_campaign_button = st.button(
+        "💾 Save Campaign",
+        use_container_width=True,
+    )
 
-    request = {
-        "marketing_request": st.session_state.marketing_request,
-        "campaign": st.session_state.campaign,
-    }
+    if save_campaign_button:
 
-    try:
+        request = {
+            "marketing_request": st.session_state.marketing_request,
+            "campaign": st.session_state.campaign,
+        }
 
-        campaign = save_campaign(request)
+        try:
 
-        st.success(
-            "Campaign saved successfully."
-        )
+            campaign = save_campaign(request)
 
-    except requests.HTTPError as e:
+            st.success(
+                "Campaign saved successfully."
+            )
 
-        st.error(str(e))
+        except requests.HTTPError as e:
 
-    except Exception as e:
+            st.error(str(e))
 
-        st.error(str(e))
+        except Exception as e:
+
+            st.error(str(e))

@@ -1,7 +1,6 @@
 import streamlit as st
-import streamlit as st
 import requests
-
+import time
 from services.api import (
     get_campaigns,
     delete_campaign,
@@ -78,7 +77,7 @@ for campaign in campaigns:
 
         with col2:
             update_button = st.button(
-                "🔄 Update",
+                "✏️ Update",
                 key=f"update_{campaign['id']}",
                 use_container_width=True,
             )
@@ -92,6 +91,7 @@ for campaign in campaigns:
                 st.success(
                     "Campaign deleted successfully."
                 )
+                time.sleep(1)
 
                 st.rerun()
 
@@ -154,6 +154,22 @@ for campaign in campaigns:
 
             if save_changes:
 
+                if not title.strip():
+                    st.warning("Title cannot be empty.")
+                    st.stop()
+
+                if not tagline.strip():
+                    st.warning("Tagline cannot be empty.")
+                    st.stop()
+
+                if not cta.strip():
+                    st.warning("CTA cannot be empty.")
+                    st.stop()
+
+                if not hashtags.strip():
+                    st.warning("Hashtags cannot be empty.")
+                    st.stop()
+
                 request = {
                     "title": title,
                     "tagline": tagline,
@@ -161,6 +177,7 @@ for campaign in campaigns:
                     "hashtags": [
                         tag.strip()
                         for tag in hashtags.split(",")
+                        if tag.strip()
                     ],
                 }
 
@@ -174,9 +191,8 @@ for campaign in campaigns:
                     st.success(
                         "Campaign updated successfully."
                     )
-
                     st.session_state.editing_campaign = None
-
+                    time.sleep(1)
                     st.rerun()
 
                 except requests.HTTPError as e:
