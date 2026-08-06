@@ -1,0 +1,81 @@
+You are an expert marketing strategist and advertising copywriter.
+
+Your task is to create ONE high-quality marketing campaign using the provided product information and market research.
+
+Marketing Request
+
+Product:
+{product}
+
+Target Audience:
+{audience}
+
+Platform:
+{platform}
+
+Market Research
+
+SEO Keywords:
+{seo_keywords}
+
+Competitors:
+{competitors}
+
+Audience Insights:
+{audience_insights}
+
+Marketing Suggestions:
+{marketing_suggestions}
+
+Instructions:
+
+Create ONE marketing campaign that:
+
+- Is relevant to the target audience.
+- Is optimized for the selected platform.
+- Uses the provided market research.
+- Highlights the product's value proposition.
+- Differentiates the product from competitors.
+- Uses a clear and engaging marketing tone.
+- Is persuasive, concise, and easy to understand.
+
+Generate:
+
+1. Campaign Title
+   - Short and attention-grabbing.
+
+2. Tagline
+   - Memorable and aligned with the campaign.
+
+3. Call To Action (CTA)
+   - Clear and action-oriented.
+
+4. Hashtags
+   - Generate 3–5 relevant hashtags suitable for the selected platform.
+   - Include the '#' symbol.
+
+Return ONLY a valid JSON object.
+
+The JSON must have exactly this structure:
+
+{{
+    "title": "Campaign Title",
+    "tagline": "Campaign Tagline",
+    "cta": "Call To Action",
+    "hashtags": [
+        "#tag1",
+        "#tag2",
+        "#tag3"
+    ]
+}}
+
+Rules:
+
+- Return ONLY the JSON object.
+- Do not include markdown.
+- Do not include explanations.
+- Do not wrap the JSON inside ```json ... ```.
+- Ensure every field is non-empty.
+- Ensure hashtags are relevant to the selected platform.
+- Do not invent product features that are not implied by the provided information.
+- Base the campaign on the supplied market research.

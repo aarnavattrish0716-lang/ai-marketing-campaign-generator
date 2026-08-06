@@ -1,30 +1,39 @@
 from pydantic import BaseModel, ConfigDict
-# Request Model
+
 class MarketingRequest(BaseModel):
     product: str
     audience: str
     platform: str
-#AI response models
+
+class CampaignResponse(BaseModel):
+    title: str
+    tagline: str
+    cta: str
+    hashtags: list[str]
+
+
 class ResearchResponse(BaseModel):
     seo_keywords: list[str]
     competitors: list[str]
     audience_insights: list[str]
     marketing_suggestions: list[str]
 
-class CampaignConcept(BaseModel):
-    concept_id: int
-    concept_name: str
-    description: str
-    title: str
-    tagline: str
-    cta: str
-    hashtags: list[str]
+class CampaignGenerationRequest(BaseModel):
+    marketing_request: MarketingRequest
+    research: ResearchResponse
 
-class CampaignConceptResponse(BaseModel):
-    recommended_concept_id: int
-    concepts: list[CampaignConcept]
-    
-#Database Model
+
+class CampaignRevisionRequest(BaseModel):
+    marketing_request: MarketingRequest
+    research: ResearchResponse
+    previous_campaign: CampaignResponse
+    feedback: str
+
+
+class SaveCampaignRequest(BaseModel):
+    marketing_request: MarketingRequest
+    campaign: CampaignResponse
+
 class CampaignRecord(BaseModel):
     id: int
     product: str
@@ -37,15 +46,5 @@ class CampaignRecord(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-#Generic Model
 class MessageResponse(BaseModel):
-    message:str
-
-class CampaignResponse(BaseModel):
-    title: str
-    tagline: str
-    cta: str
-    hashtags: list[str]
-
-
-
+    message: str
